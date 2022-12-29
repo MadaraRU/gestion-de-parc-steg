@@ -27,3 +27,17 @@ export const useUpdateModal = () => {
     Modal,
   };
 };
+
+export const useReadModal = () => {
+  const [isOpenRead, setIsOpenRead] = useState(false);
+
+  const showRead = useCallback(() => setIsOpenRead(true), []);
+  const hideRead = useCallback(() => setIsOpenRead(false), []);
+
+  return {
+    isOpenRead,
+    showRead,
+    hideRead,
+    Modal,
+  };
+};

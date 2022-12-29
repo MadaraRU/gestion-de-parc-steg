@@ -61,6 +61,23 @@ export const useParc = () => {
     },
   });
 
-  //   return { parcs: data, isLoading, error };
   return { parcs: data, isLoading, error, addParc, updateParc, deleteParc };
+};
+
+export const useOneParc = (parcId) => {
+  const { user } = useAuthContext();
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-access-token': user.accessToken,
+  };
+  const { data, isLoading, error } = useQuery(
+    ['parcs', parcId],
+    () => fetch(`${URL}/${parcId}`, { headers }).then((res) => res.json()),
+    {
+      retry: false,
+    }
+  );
+
+  return { parc: data, isLoading, error };
 };

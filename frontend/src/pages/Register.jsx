@@ -18,7 +18,7 @@ const Register = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-image">
+    <div className="d-flex justify-content-center bg-image my-5 py-5">
       <Card className="card-glass w-25">
         <h1 className="text-dark text-center py-2 ">Inscription</h1>
         <Form className="px-4 py-2" onSubmit={signUpHandler}>

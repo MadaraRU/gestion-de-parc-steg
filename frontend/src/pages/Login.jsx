@@ -17,7 +17,7 @@ const Login = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-image">
+    <div className="d-flex justify-content-center bg-image my-5 py-5">
       <Card className="card-glass w-25">
         {error && <Message variant="danger">{error}</Message>}
         <h1 className="text-dark text-center py-2 ">Connexion</h1>

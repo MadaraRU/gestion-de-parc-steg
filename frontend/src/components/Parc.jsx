@@ -9,6 +9,7 @@ import {
   Form,
   Table,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useParc } from '../hooks/useParc';
@@ -16,7 +17,9 @@ import { useAddModal, useUpdateModal } from '../hooks/useModal';
 import { useState } from 'react';
 
 const Parc = () => {
-  const { parcs, addParc, deleteParc, updateParc } = useParc();
+  const { parcs, isLoading, error, addParc, deleteParc, updateParc } =
+    useParc();
+
   // handle add modal and update modal
   const { isOpenUpdate, hideUpdate, showUpdate } = useUpdateModal();
   const { isOpenAdd, hideAdd, showAdd } = useAddModal();
@@ -47,17 +50,18 @@ const Parc = () => {
   const [referenceUpdate, setReferenceUpdate] = useState();
   const [departementUpdate, setDepartementUpdate] = useState();
   const [nombreDelPlaceUpdate, setNombreDePlaceUpdate] = useState();
-  const [parcId, setParcId] = useState('');
+
+  const [currentParc, setCurrentParc] = useState();
 
   const updateParcHandler = (e) => {
     e.preventDefault();
 
     updateParc.mutate({
-      parcId,
+      parcId: currentParc?.id,
       values: {
-        reference: referenceUpdate || reference,
-        departement: departementUpdate || departement,
-        nombre_de_place: nombreDelPlaceUpdate || nombre_de_place,
+        reference: referenceUpdate || currentParc?.reference,
+        departement: departementUpdate || currentParc?.departement,
+        nombre_de_place: nombreDelPlaceUpdate || currentParc?.nombre_de_place,
       },
     });
 
@@ -72,7 +76,7 @@ const Parc = () => {
       <Container className="mt-5">
         <Row>
           <Col>
-            <h2>Gestion de parc: </h2>
+            <h2>Gestion De Parc: </h2>
           </Col>
         </Row>
         <Row>
@@ -94,7 +98,6 @@ const Parc = () => {
                 <th className="py-2">Action</th>
               </thead>
               <tbody className="text-center">
-                {parcs?.length === 0 && <p>Pas de parc disponible</p>}
                 {parcs?.map((parc) => {
                   return (
                     <tr key={parc.id}>
@@ -103,7 +106,7 @@ const Parc = () => {
                       <td className="pt-4">{parc.departement}</td>
                       <td className="pt-4">{parc.nombre_de_place}</td>
                       <td className="pt-4">
-                        <a className="pointer-event">voir voiture</a>
+                        <Link to={`${parc.id}/voiture`}>voir voiture</Link>
                       </td>
                       <td>
                         <Button
@@ -111,7 +114,7 @@ const Parc = () => {
                           className="mx-2"
                           onClick={() => {
                             showUpdate();
-                            return setParcId(parc.id);
+                            return setCurrentParc(parc);
                           }}
                         >
                           <FontAwesomeIcon icon={faEdit} />
@@ -128,6 +131,9 @@ const Parc = () => {
                 })}
               </tbody>
             </Table>
+            {parcs?.length === 0 && (
+              <p className="text-center">Pas de parc disponible</p>
+            )}
           </Col>
         </Row>
       </Container>

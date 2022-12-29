@@ -17,6 +17,16 @@ const getAllVoitures = asyncHandler(async (req, res) => {
   res.json(voiture);
 });
 
+const getVoiture = asyncHandler(async (req, res) => {
+  const voiture = await Voiture.findByPk(req.params.id);
+
+  if (!voiture) {
+    return res.status(404).send('Voiture not found');
+  }
+
+  res.json(voiture);
+});
+
 const addVoiture = asyncHandler(async (req, res) => {
   const { marque, model, plaque } = req.body;
   const parc = await Parc.findByPk(req.params.id, {
@@ -95,4 +105,5 @@ module.exports = {
   addVoiture,
   deleteVoiture,
   updateVoiture,
+  getVoiture,
 };

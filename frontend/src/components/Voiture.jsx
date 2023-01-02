@@ -23,6 +23,7 @@ import {
   Spinner,
 } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useAddModal, useReadModal, useUpdateModal } from '../hooks/useModal';
 import { useOneParc } from '../hooks/useParc';
@@ -107,7 +108,38 @@ const Voiture = () => {
     setModelUpdate('');
   };
 
-  if (isFetching) return <Spinner animation="grow" variant="primary" />;
+  if (isFetching)
+    return (
+      <Spinner
+        animation="grow"
+        variant="primary"
+        className="justify-content-center"
+      />
+    );
+
+  useEffect(() => {
+    if (addVoiture.isSuccess) {
+      toast.success('Voiture Ajouter!', {
+        position: 'top-center',
+      });
+    }
+  }, [addVoiture.isSuccess]);
+
+  useEffect(() => {
+    if (deleteVoiture.isSuccess) {
+      toast.success('Voiture Supprimer!', {
+        position: 'top-center',
+      });
+    }
+  }, [deleteVoiture.isSuccess]);
+
+  useEffect(() => {
+    if (updateVoiture.isSuccess) {
+      toast.success('Voiture Modifier!', {
+        position: 'top-center',
+      });
+    }
+  }, [updateVoiture.isSuccess]);
 
   return (
     <>

@@ -9,12 +9,14 @@ import {
   Form,
   Table,
 } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useParc } from '../hooks/useParc';
 import { useAddModal, useUpdateModal } from '../hooks/useModal';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Parc = () => {
   const { parcs, isLoading, error, addParc, deleteParc, updateParc } =
@@ -70,6 +72,30 @@ const Parc = () => {
     setDepartementUpdate();
     setNombreDePlaceUpdate();
   };
+
+  useEffect(() => {
+    if (addParc.isSuccess) {
+      toast.success('Parc Ajouter!', {
+        position: 'top-center',
+      });
+    }
+  }, [addParc.isSuccess]);
+
+  useEffect(() => {
+    if (deleteParc.isSuccess) {
+      toast.success('Parc Supprimer!', {
+        position: 'top-center',
+      });
+    }
+  }, [deleteParc.isSuccess]);
+
+  useEffect(() => {
+    if (updateParc.isSuccess) {
+      toast.success('Parc Modifier!', {
+        position: 'top-center',
+      });
+    }
+  }, [updateParc.isSuccess]);
 
   return (
     <>

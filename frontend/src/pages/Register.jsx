@@ -3,6 +3,8 @@ import { useSignup } from '../hooks/useSignup';
 import { Button, Card, Col, FloatingLabel, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const [fullname, setFullname] = useState('');
@@ -16,6 +18,14 @@ const Register = () => {
 
     await signup(fullname, username, email, password);
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: 'top-center',
+      });
+    }
+  }, [error]);
 
   return (
     <div className="d-flex justify-content-center bg-image my-5 py-5">
@@ -62,7 +72,6 @@ const Register = () => {
           >
             S'inscrire
           </Button>
-          {error && <p>{error}</p>}
 
           <Row className="py-3">
             <Col>

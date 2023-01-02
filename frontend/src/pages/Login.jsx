@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Form, Button, FloatingLabel, Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import '../App.css';
-import Message from '../components/Message';
+
 import { useLogin } from '../hooks/useLogin';
+import useToast from '../hooks/useToast';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -16,10 +19,17 @@ const Login = () => {
     await login(username, password);
   };
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: 'top-center',
+      });
+    }
+  }, [error]);
+
   return (
     <div className="d-flex justify-content-center bg-image my-5 py-5">
       <Card className="card-glass w-25">
-        {error && <Message variant="danger">{error}</Message>}
         <h1 className="text-dark text-center py-2 ">Connexion</h1>
         <Form className="px-4 py-2" onSubmit={loginHandler}>
           <FloatingLabel controlId="formUsername" label="Nom d'utilisateur">

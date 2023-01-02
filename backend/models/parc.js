@@ -1,5 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
   const Parc = sequelize.define('parcs', {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     reference: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -9,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
     },
     nombre_de_place: {
-      type: Sequelize.NUMBER,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
   });

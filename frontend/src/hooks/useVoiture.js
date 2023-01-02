@@ -1,4 +1,6 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { queryClient } from '../react-query/queryClient';
 import { useAuthContext } from './useAuthContext';
 
@@ -59,6 +61,30 @@ export const useVoiture = (parcId) => {
       queryClient.invalidateQueries(['voitures']);
     },
   });
+
+  useEffect(() => {
+    if (addVoiture?.isSuccess) {
+      toast.success('Voiture Ajouter!', {
+        position: 'top-center',
+      });
+    }
+  }, [addVoiture?.isSuccess]);
+
+  useEffect(() => {
+    if (deleteVoiture?.isSuccess) {
+      toast.success('Voiture Supprimer!', {
+        position: 'top-center',
+      });
+    }
+  }, [deleteVoiture?.isSuccess]);
+
+  useEffect(() => {
+    if (updateVoiture?.isSuccess) {
+      toast.success('Voiture Modifier!', {
+        position: 'top-center',
+      });
+    }
+  }, [updateVoiture?.isSuccess]);
 
   return {
     voitures: data,

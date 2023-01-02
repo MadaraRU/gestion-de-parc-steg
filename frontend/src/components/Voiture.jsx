@@ -117,30 +117,6 @@ const Voiture = () => {
       />
     );
 
-  useEffect(() => {
-    if (addVoiture.isSuccess) {
-      toast.success('Voiture Ajouter!', {
-        position: 'top-center',
-      });
-    }
-  }, [addVoiture.isSuccess]);
-
-  useEffect(() => {
-    if (deleteVoiture.isSuccess) {
-      toast.success('Voiture Supprimer!', {
-        position: 'top-center',
-      });
-    }
-  }, [deleteVoiture.isSuccess]);
-
-  useEffect(() => {
-    if (updateVoiture.isSuccess) {
-      toast.success('Voiture Modifier!', {
-        position: 'top-center',
-      });
-    }
-  }, [updateVoiture.isSuccess]);
-
   return (
     <>
       <Container className="mt-4">
